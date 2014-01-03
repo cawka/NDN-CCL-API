@@ -5,19 +5,22 @@ Some C++ methods need to use shared_ptr. Depending on where ./configure found sh
 
 .. code-block:: c++
 
-    #if NDN_CPP_HAVE_STD_SHARED_PTR
-    #include
-    #include <memory>
-    namespace ndn { namespace ptr_lib = std; }
-    #elif NDN_CPP_HAVE_BOOST_SHARED_PTR
-    #include <boost/shared_ptr.hpp>
-    #include <boost/make_shared.hpp>
-    namespace ndn { namespace ptr_lib = boost; }
-    #else
-    // Use the boost header files in this distribution.
-    #include <ndnboost/shared_ptr.hpp>
-    #include <ndnboost/make_shared.hpp>
-    namespace ndn { namespace ptr_lib = ndnboost; }
+    #if NDN_CPP_HAVE_CXX11
+        #include <memory>
+        #include <functional>
+        namespace ndn { namespace func_lib = std; namespace ptr_lib = std; }
+    #elif NDN_CPP_USE_SYSTEM_BOOST
+        #include <boost/shared_ptr.hpp>
+        #include <boost/make_shared.hpp>
+        #include <boost/function.hpp>
+        #include <boost/bind.hpp>
+        namespace ndn { namespace ptr_lib = boost; namespace func_lib = boost; }
+    #else 
+        #include <ndnboost/shared_ptr.hpp>
+        #include <ndnboost/make_shared.hpp>
+        #include <ndnboost/function.hpp>
+        #include <ndnboost/bind.hpp>
+        namespace ndn { namespace ptr_lib = ndnboost; namespace func_lib = ndnboost; }
     #endif
 
 Time representation
@@ -35,7 +38,7 @@ Milliseconds Typedef
 
 .. code-block:: c++
 
-    typedef double Milliseconds;
+    typedef int64_t Milliseconds;
 
 MillisecondsSince1970 Typedef
 -----------------------------
@@ -47,4 +50,4 @@ MillisecondsSince1970 Typedef
 
 .. code-block:: c++
 
-    typedef double MillisecondsSince1970;
+    typedef int64_t MillisecondsSince1970;

@@ -21,8 +21,6 @@ Table of Contents:
 
 .. toctree::
    details/forwarding-flags
-   details/tcp-transport
-   details/udp-transport
    :maxdepth: 1
 
 .. details/wire-format

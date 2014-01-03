@@ -12,8 +12,8 @@ Face Class
 Face Constructors
 -----------------
 
-Face Constructor (explicit Transport)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Face Constructor
+^^^^^^^^^^^^^^^^
 
 Create a new Face object with the given Transport to manage NDN communication.
 
@@ -23,9 +23,7 @@ Create a new Face object with the given Transport to manage NDN communication.
     
         Face(
         
-            const ptr_lib::shared_ptr<Transport>& transport
-            const ptr_lib::shared_ptr<const Transport::ConnectionInfo>& 
-                connectionInfo
+            [const ptr_lib::shared_ptr<Transport>& transport]
         
         );
 
@@ -48,10 +46,13 @@ Create a new Face object with the given Transport to manage NDN communication.
 :Parameters:
 
     - ``transport``
-	An object of a subclass of Transport to use for communication.
+	(C++ only) An object of a subclass of Transport to use for communication.
 
-    - ``connectionInfo``
-	This must be a ConnectionInfo from the same subclass of Transport as transport.
+        Transport parameters (e.g., host and port numbers) are
+        embedded inside the Transport object.  See
+        :ref:`UdpTransport`, :ref:`TcpTransport`, and :ref:`UnixTransport`.
+
+        If omitted, use UnixTransport with default parameters.
 
     - ``settings``
 	(JavaScript only) An associative array with the following defaults:
@@ -65,61 +66,7 @@ Create a new Face object with the given Transport to manage NDN communication.
                  // a new { host: host, port: port } 
                  // or null if there are no more hosts.
             host: null, // If null, use getHostAndPort when connecting.
-            port: 9696
-
-Face Constructor (default Transport)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Create a new Face object with optional settings to manage NDN communication.
-
-:[C++]:
-
-    .. code-block:: c++
-    
-        Face(
-        
-            [const char* host]
-            [, unsigned short port]
-        
-        );
-
-:[JavaScript]:
-
-    .. code-block:: javascript
-    
-        var Face = function Face(
-        
-            [settings // associative array]
-        
-        )
-
-:[Python]:
-
-    .. code-block:: python
-    
-        def __init__(self)
-
-:Parameters:
-
-    - ``host``
-	(optional) The host to connect to. If omitted, use “localhost” with the default TcpTransport.
-
-    - ``port``
-	(optional) The port to connect to. If omitted, use 6363 with the default TcpTransport.
-
-    - ``settings``
-	(JavaScript only) (optional) An associative array with the following defaults:
-
-	.. code-block:: javascript
-
-            getTransport: function() 
-                { return new WebSocketTransport(); },
-            getHostAndPort: transport.defaultGetHostAndPort,
-                // a function, on each call it returns a new 
-                // { host: host, port: port } 
-                // or null if there are no more hosts.
-            host: null, // If null, use getHostAndPort when connecting.
-            port: 9696
+            port: 6363
 
 Face.expressInterest Methods
 ----------------------------

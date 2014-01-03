@@ -2,37 +2,17 @@ Transport Class
 ===============
 
 :[C++]:
-    Namespace: `ndn`
+    Namespace: ``ndn``
 
 :Realizations:
 
+    - :ref:`UdpTransport Class <UnixTransport>` (C++ only)
     - :ref:`UdpTransport Class <UdpTransport>`
     - :ref:`TcpTransport Class <TcpTransport>`
 
+.. include:: details/unix-transport.rst
 
-Transport Constructor
----------------------
+.. include:: details/udp-transport.rst
 
-Create a base class Transport where the methods throw an "unimplemented" error. You should use a derived class like :ref:`UdpTransport <UdpTransport>`.
+.. include:: details/tcp-transport.rst
 
-:[C++]:
-
-    .. code-block:: c++
-
-        Transport();
-
-:[JavaScript]:
-
-    .. code-block:: javascript
-
-        var Transport = function Transport()
-
-
-Transport.ConnectionInfo Class
-------------------------------
-
-:[C++]:
-    Namespace: `ndn`
-
-
-A Transport.ConnectionInfo is a base class for connection information used by subclasses of Transport.
